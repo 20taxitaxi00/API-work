@@ -19,14 +19,16 @@
     }
 
     $( function () {
-      const url = "https://api.gnavi.co.jp/RestSearchAPI/v3/"
+      const url = "https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=8b9899ee8b786d216eb0a28404ba7c4b"
+      // const key = "8b9899ee8b786d216eb0a28404ba7c4b"
       const params = {
-        keyid: "",
-        area: 'AREA200'
+        area: 'AREA200',
+        areacode_s: 'AREAS8252',
+        freeword: ''
       }
 
       $("#submit").on("click",  () => {
-        params.keyid = $("#key").val()
+        params.freeword = $("#key").val()
         $.getJSON( url, params, result => {
           showResult( result )
         })
