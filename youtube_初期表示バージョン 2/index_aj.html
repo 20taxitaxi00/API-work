@@ -1,29 +1,40 @@
-<!-- 
-  https://developers.google.com/youtube/v3/docs/search?hl=ja#resource
- -->
-
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>webAPIサンプル</title>
+  <meta charset="utf-8">
+  <title>ぐるなびAPIテスト</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
 </head>
-
 <body>
-  <!-- <form action="">
-    <label for="name">動画 :</label>
-    <input id="name" type="text" name="name">
-    <button id="btn" type="button" name="submit">送信</button>
-  </form> -->
-  <h2>最初から表示したい</h2>
-  <ul id="result">
-    通信中
-  </ul>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="app_aj.js"></script>
-</body>
+  <input type="text" id="key" placeholder="アクセスキーを入力"><input type="button" id="submit" value="送信">
+  <table id="table" border="1">
+    <tr><th>店舗名</th><th>営業時間</th></tr>
+  </table>
 
+  <script>
+    const showResult = result => {
+      result.rest.map( item => {
+        $("#table").append(`<tr><td>${item.name}</td><td>${item.opentime}</td></tr>`)
+      })
+    }
+
+    $( function () {
+      const url = "https://api.gnavi.co.jp/RestSearchAPI/v3/"
+      const params = {
+        keyid: "",
+        latitude: 34.702492,
+        longitude: 135.495965,
+        range: 3
+      }
+
+      $("#submit").on("click",  () => {
+        params.keyid = $("#key").val()
+        $.getJSON( url, params, result => {
+          showResult( result )
+        })
+      })
+    })
+  </script>
+    
+</body>
 </html>
